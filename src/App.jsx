@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
    DATA
 ═══════════════════════════════════════════════════════ */
 const DATA = {
-  name: "Kavindu Karunagoda",
+  name: "Kavindu Sachintha Karunagoda",
   title: "Intern Software Engineer",
   location: "Negombo, Sri Lanka",
   phone: "(+94) 764 610 634",
@@ -243,29 +243,12 @@ function Nav({ active }) {
         transition:"all .4s ease",
       }}>
         <button
-  onClick={() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }}
-  data-hover
-  style={{
-    background: "none",
-    border: "none",
-    cursor: "none",
-    padding: 0,
-    display: "flex",
-    alignItems: "center"
-  }}
->
-  <img
-    src="/logo.png"
-    alt="Logo"
-    style={{
-      height: "36px",
-      width: "auto",
-      objectFit: "contain"
-    }}
-  />
-</button>
+          onClick={() => { window.scrollTo({ top: 0, behavior: "smooth" }); }}
+          data-hover
+          style={{ background:"none", border:"none", cursor:"none", padding:0, display:"flex", alignItems:"center" }}
+        >
+          <img src="/logo.png" alt="Logo" style={{ height:"36px", width:"auto", objectFit:"contain" }}/>
+        </button>
 
         {/* Desktop nav */}
         {!isMobile && !isTablet && (
@@ -276,7 +259,7 @@ function Nav({ active }) {
           </div>
         )}
 
-        {/* Tablet nav — shorter labels */}
+        {/* Tablet nav */}
         {isTablet && (
           <div style={{ display:"flex", gap:18 }}>
             {["home","about","skills","projects","contact"].map(s => (
@@ -392,7 +375,7 @@ function Hero() {
           <div style={{ position:"absolute", inset:-3, borderRadius:"50% 42% 56% 44%/48% 50% 50% 52%", background:"linear-gradient(135deg,rgba(56,189,248,0.5),rgba(14,165,233,0.2),transparent 60%)", animation:"morphRing 8s ease-in-out infinite" }}/>
           <div style={{ position:"absolute", inset:-16, borderRadius:"50% 42% 56% 44%/48% 50% 50% 52%", border:"1px solid rgba(56,189,248,0.15)", animation:"morphRing 10s ease-in-out infinite reverse" }}/>
           <div style={{ position:"relative", zIndex:1, width:"clamp(260px,26vw,400px)", height:"clamp(300px,30vw,460px)", borderRadius:"50% 42% 56% 44%/48% 50% 50% 52%", overflow:"hidden", border:"2px solid rgba(56,189,248,0.2)", boxShadow:"0 0 60px rgba(56,189,248,0.12),0 32px 80px rgba(0,0,0,0.5)", animation:"morphPhoto 8s ease-in-out infinite" }}>
-            <img src="/kavindu.png" alt="Kavindu Karunagoda" style={{ width:"100%", height:"100%", objectFit:"cover", objectPosition:"center top", filter:"brightness(0.95) contrast(1.05)" }}/>
+            <img src="/kavindu.png" alt="Kavindu Sachintha Karunagoda" style={{ width:"100%", height:"100%", objectFit:"cover", objectPosition:"center top", filter:"brightness(0.95) contrast(1.05)" }}/>
             <div style={{ position:"absolute", inset:0, background:"linear-gradient(to bottom,transparent 60%,rgba(9,14,26,0.4))" }}/>
           </div>
           <div style={{ position:"absolute", bottom:24, left:-36, background:"rgba(17,24,39,0.95)", backdropFilter:"blur(12px)", border:"1px solid rgba(56,189,248,0.2)", borderRadius:10, padding:"10px 18px", zIndex:2, boxShadow:"0 8px 32px rgba(0,0,0,0.4)" }}>
@@ -433,8 +416,9 @@ function Hero() {
         )}
 
         {/* Name */}
-        <h1 style={{ ...anim(.2), fontFamily:"'Playfair Display',serif", fontSize:`clamp(${isMobile?"2.4rem":"2.8rem"},${isMobile?"11vw":"8vw"},6.5rem)`, fontWeight:700, color:T.ink, lineHeight:.94, letterSpacing:"-.03em", marginBottom:18 }}>
+        <h1 style={{ ...anim(.2), fontFamily:"'Playfair Display',serif", fontSize:`clamp(${isMobile?"2rem":"2.4rem"},${isMobile?"9vw":"7vw"},5.5rem)`, fontWeight:700, color:T.ink, lineHeight:.94, letterSpacing:"-.03em", marginBottom:18 }}>
           Kavindu<br/>
+          Sachintha<br/>
           <span style={{ fontStyle:"italic", color:"#38bdf8" }}>Karunagoda</span>
         </h1>
 
@@ -500,7 +484,6 @@ function About() {
   return (
     <section id="about" style={{ padding:`${isMobile?"80px":"120px"} ${px}`, maxWidth:1200, margin:"0 auto" }}>
       <SectionHeader sub="About Me" title="Who I Am"/>
-      {/* Bio + Contact */}
       <div style={{ display:"grid", gridTemplateColumns: isMobile?"1fr": isTablet?"1fr":"1fr 1fr", gap: isMobile?36:72, alignItems:"start", marginBottom: isMobile?56:80 }}>
         <Reveal delay={.1}>
           <div style={{ fontFamily:"'DM Sans',sans-serif", lineHeight:1.9, color:T.inkMid, fontSize:".94rem" }}>
@@ -744,7 +727,7 @@ function Footer() {
   const { isMobile } = useBreakpoint();
   return (
     <footer style={{ padding: isMobile?"16px 20px":"20px 56px", textAlign:"center", background:T.dark, borderTop:"1px solid rgba(255,255,255,0.05)", fontFamily:"'DM Mono',monospace", fontSize:".58rem", color:"rgba(248,245,240,0.18)", letterSpacing:".1em" }}>
-      KAVINDU KARUNAGODA · DESIGNED & BUILT · 2025
+      KAVINDU SACHINTHA KARUNAGODA · DESIGNED & BUILT · 2025
     </footer>
   );
 }
@@ -755,6 +738,21 @@ function Footer() {
 export default function App() {
   const [active, setActive] = useState("home");
   const { isMobile, isDesktop } = useBreakpoint();
+
+  // ── Set browser tab title + favicon ──────────────────
+  useEffect(() => {
+    document.title = "Portfolio | Kavindu Sachintha Karunagoda";
+
+    // Set favicon to /logo.png
+    let link = document.querySelector("link[rel~='icon']");
+    if (!link) {
+      link = document.createElement("link");
+      link.rel = "icon";
+      document.head.appendChild(link);
+    }
+    link.type = "image/png";
+    link.href = "/logo.png";
+  }, []);
 
   useEffect(() => {
     const obs = new IntersectionObserver(

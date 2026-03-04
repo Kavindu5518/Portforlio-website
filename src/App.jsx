@@ -26,10 +26,11 @@ const DATA = {
     { date: "2020",           degree: "Visharad Exam – First Division",        org: "Bhatkhande Sangit Vidyapith Lucknow",desc: "" },
   ],
   projects: [
-    { title: "Canteen Management System", status: "Ongoing",   desc: "Automated canteen system with stock level prediction, online payments, and real-time operations management.", stack: ["React","Next.js","Firebase","JavaScript"], github: "https://github.com/Kavindu5518/Canteen-Management-System", live: null,                       accent: "#f59e0b" },
-    { title: "Online Lawyer Connect",     status: "Completed", desc: "Feature-rich platform for online lawyer booking, ratings, and real-time live-chat between users and lawyers.", stack: ["Flutter","Dart","Firebase","Firestore"],  github: null,                                                    live: null,                       accent: "#10b981" },
-    { title: "Ashasha Villa Website",     status: "Completed", desc: "Group project — full responsive official website for a villa property with modern UI and booking integration.",  stack: ["HTML","CSS","JavaScript"],              github: null,                                                    live: "https://ashashavilla.com", accent: "#38bdf8" },
-    { title: "Hotel AYOWA Website",       status: "Completed", desc: "Professional hotel website with clean layout, responsive design, and engaging visual presentation.",             stack: ["HTML","CSS","JavaScript"],              github: "https://github.com/Kaveesha-Devs/Hotel-Ayowa",          live: null,                       accent: "#a78bfa" },
+    { title: "Canteen Management System",  status: "Ongoing",   desc: "Automated canteen system with stock level prediction, online payments, and real-time operations management.", stack: ["React","Next.js","Firebase","JavaScript"], github: "https://github.com/Kavindu5518/Canteen-Management-System", live: null,                       accent: "#f59e0b" },
+    { title: "Ridex — Motorcycle Tracker", status: "Ongoing",   desc: "Motorcycle tracking web application to help riders log day-to-day activities including service records, trips, and more.", stack: ["React","Next.js","Firebase"],            github: "https://github.com/Kavindu5518/Motorbike-Tracker",                        live: null,                       accent: "#f97316" },
+    { title: "Online Lawyer Connect",      status: "Completed", desc: "Feature-rich platform for online lawyer booking, ratings, and real-time live-chat between users and lawyers.", stack: ["Flutter","Dart","Firebase","Firestore"],  github: null,                                                    live: null,                       accent: "#10b981" },
+    { title: "Ashasha Villa Website",      status: "Completed", desc: "Group project — full responsive official website for a villa property with modern UI and booking integration.",  stack: ["HTML","CSS","JavaScript"],              github: null,                                                    live: "https://ashashavilla.com", accent: "#38bdf8" },
+    { title: "Hotel AYOWA Website",        status: "Completed", desc: "Professional hotel website with clean layout, responsive design, and engaging visual presentation.",             stack: ["HTML","CSS","JavaScript"],              github: "https://github.com/Kaveesha-Devs/Hotel-Ayowa",          live: null,                       accent: "#a78bfa" },
   ],
   certs: [
     { title: "Database Management System",           org: "Suhurusara · Nov 2025" },
@@ -739,11 +740,8 @@ export default function App() {
   const [active, setActive] = useState("home");
   const { isMobile, isDesktop } = useBreakpoint();
 
-  // ── Set browser tab title + favicon ──────────────────
   useEffect(() => {
     document.title = "Portfolio | Kavindu Sachintha Karunagoda";
-
-    // Set favicon to /logo.png
     let link = document.querySelector("link[rel~='icon']");
     if (!link) {
       link = document.createElement("link");

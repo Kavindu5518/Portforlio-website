@@ -1,6 +1,131 @@
 import { useState, useEffect, useRef } from "react";
 
 /* ═══════════════════════════════════════════════════════
+   SEO COMPONENT
+═══════════════════════════════════════════════════════ */
+function SEO() {
+  useEffect(() => {
+    // ── Title ──────────────────────────────────────────
+    document.title = "Kavindu Sachintha Karunagoda | Software Engineer & Full-Stack Developer";
+
+    // ── Helper ─────────────────────────────────────────
+    const setMeta = (attrs, content) => {
+      const sel = Object.entries(attrs).map(([k,v]) => `[${k}="${v}"]`).join("");
+      let el = document.querySelector(`meta${sel}`);
+      if (!el) {
+        el = document.createElement("meta");
+        Object.entries(attrs).forEach(([k,v]) => el.setAttribute(k,v));
+        document.head.appendChild(el);
+      }
+      el.setAttribute("content", content);
+    };
+    const setLink = (rel, href, extra = {}) => {
+      let el = document.querySelector(`link[rel="${rel}"]`);
+      if (!el) { el = document.createElement("link"); el.rel = rel; document.head.appendChild(el); }
+      el.href = href;
+      Object.entries(extra).forEach(([k,v]) => el.setAttribute(k,v));
+    };
+    const setScript = (id, content) => {
+      let el = document.getElementById(id);
+      if (!el) { el = document.createElement("script"); el.id = id; el.type = "application/ld+json"; document.head.appendChild(el); }
+      el.textContent = content;
+    };
+
+    const desc = "Enthusiastic Software Engineering student with hands-on experience in full-stack web development (React, Next.js), mobile app development (Flutter), and QA automation. Open to internship opportunities in Sri Lanka.";
+    const url  = "https://kavindu-portfolio.vercel.app"; // 🔁 Replace with your actual URL
+    const img  = `${url}/kavindu.png`;
+
+    // ── Primary meta ───────────────────────────────────
+    setMeta({ name:"description"    }, desc);
+    setMeta({ name:"keywords"       }, "Kavindu Sachintha, Karunagoda, Software Engineer, Full-Stack Developer, React, Next.js, Flutter, Firebase, Sri Lanka, Internship, Web Developer, Mobile Developer");
+    setMeta({ name:"author"         }, "Kavindu Sachintha Karunagoda");
+    setMeta({ name:"robots"         }, "index, follow");
+    setMeta({ name:"theme-color"    }, "#090e1a");
+    setMeta({ name:"viewport"       }, "width=device-width, initial-scale=1.0");
+
+    // ── Open Graph ─────────────────────────────────────
+    setMeta({ property:"og:type"        }, "website");
+    setMeta({ property:"og:url"         }, url);
+    setMeta({ property:"og:title"       }, "Kavindu Sachintha Karunagoda | Software Engineer");
+    setMeta({ property:"og:description" }, desc);
+    setMeta({ property:"og:image"       }, img);
+    setMeta({ property:"og:image:width" }, "1200");
+    setMeta({ property:"og:image:height"}, "630");
+    setMeta({ property:"og:site_name"   }, "Kavindu Sachintha Portfolio");
+    setMeta({ property:"og:locale"      }, "en_US");
+
+    // ── Twitter Card ───────────────────────────────────
+    setMeta({ name:"twitter:card"       }, "summary_large_image");
+    setMeta({ name:"twitter:title"      }, "Kavindu Sachintha Karunagoda | Software Engineer");
+    setMeta({ name:"twitter:description"}, desc);
+    setMeta({ name:"twitter:image"      }, img);
+
+    // ── Canonical ──────────────────────────────────────
+    setLink("canonical", url);
+
+    // ── Favicon ────────────────────────────────────────
+    setLink("icon",       "/logo.png", { type:"image/png" });
+    setLink("apple-touch-icon", "/logo.png");
+
+    // ── Structured Data — Person ───────────────────────
+    setScript("sd-person", JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Kavindu Sachintha Karunagoda",
+      "url": url,
+      "image": img,
+      "jobTitle": "Intern Software Engineer",
+      "description": desc,
+      "email": "kavindusachintha2001n@gmail.com",
+      "telephone": "+94764610634",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Negombo",
+        "addressCountry": "LK"
+      },
+      "alumniOf": {
+        "@type": "EducationalOrganization",
+        "name": "Eastern University Sri Lanka"
+      },
+      "knowsAbout": ["React","Next.js","Flutter","Firebase","JavaScript","Python","Java","MySQL","MongoDB","Selenium WebDriver","Software Testing"],
+      "sameAs": [
+        "https://github.com/Kavindu5518",
+        "https://linkedin.com/in/kavindu-karunagoda"
+      ]
+    }));
+
+    // ── Structured Data — WebSite ──────────────────────
+    setScript("sd-website", JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Kavindu Sachintha Karunagoda Portfolio",
+      "url": url,
+      "description": desc,
+      "author": {
+        "@type": "Person",
+        "name": "Kavindu Sachintha Karunagoda"
+      }
+    }));
+
+    // ── Structured Data — ItemList (Projects) ──────────
+    setScript("sd-projects", JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "Software Projects by Kavindu Sachintha Karunagoda",
+      "itemListElement": [
+        { "@type":"ListItem","position":1,"name":"Canteen Management System","description":"Automated canteen system with stock level prediction, online payments, and real-time operations management.","url":"https://github.com/Kavindu5518/Canteen-Management-System" },
+        { "@type":"ListItem","position":2,"name":"Ridex — Motorcycle Tracker","description":"Motorcycle tracking web application to help riders log day-to-day activities including service records and trips." },
+        { "@type":"ListItem","position":3,"name":"Online Lawyer Connect","description":"Feature-rich platform for online lawyer booking, ratings, and real-time live-chat." },
+        { "@type":"ListItem","position":4,"name":"Ashasha Villa Website","description":"Full responsive official website for a villa property.","url":"https://ashashavilla.com" },
+        { "@type":"ListItem","position":5,"name":"Hotel AYOWA Website","description":"Professional hotel website with clean layout and responsive design.","url":"https://github.com/Kaveesha-Devs/Hotel-Ayowa" },
+      ]
+    }));
+
+  }, []);
+  return null;
+}
+
+/* ═══════════════════════════════════════════════════════
    DATA
 ═══════════════════════════════════════════════════════ */
 const DATA = {
@@ -27,7 +152,7 @@ const DATA = {
   ],
   projects: [
     { title: "Canteen Management System",  status: "Ongoing",   desc: "Automated canteen system with stock level prediction, online payments, and real-time operations management.", stack: ["React","Next.js","Firebase","JavaScript"], github: "https://github.com/Kavindu5518/Canteen-Management-System", live: null,                       accent: "#f59e0b" },
-    { title: "Ridex — Motorcycle Tracker", status: "Ongoing",   desc: "Motorcycle tracking web application to help riders log day-to-day activities including service records, trips, and more.", stack: ["React","Next.js","Firebase"],            github: "https://github.com/Kavindu5518/Motorbike-Tracker",                        live: null,                       accent: "#f97316" },
+    { title: "Ridex — Motorcycle Tracker", status: "Ongoing",   desc: "Motorcycle tracking web application to help riders log day-to-day activities including service records, trips, and more.", stack: ["React","Next.js","Firebase"],            github: "https://github.com/Kavindu5518",                        live: null,                       accent: "#f97316" },
     { title: "Online Lawyer Connect",      status: "Completed", desc: "Feature-rich platform for online lawyer booking, ratings, and real-time live-chat between users and lawyers.", stack: ["Flutter","Dart","Firebase","Firestore"],  github: null,                                                    live: null,                       accent: "#10b981" },
     { title: "Ashasha Villa Website",      status: "Completed", desc: "Group project — full responsive official website for a villa property with modern UI and booking integration.",  stack: ["HTML","CSS","JavaScript"],              github: null,                                                    live: "https://ashashavilla.com", accent: "#38bdf8" },
     { title: "Hotel AYOWA Website",        status: "Completed", desc: "Professional hotel website with clean layout, responsive design, and engaging visual presentation.",             stack: ["HTML","CSS","JavaScript"],              github: "https://github.com/Kaveesha-Devs/Hotel-Ayowa",          live: null,                       accent: "#a78bfa" },
@@ -140,7 +265,7 @@ function useMousePos() {
 }
 
 /* ═══════════════════════════════════════════════════════
-   CURSOR  (desktop only)
+   CURSOR
 ═══════════════════════════════════════════════════════ */
 function Cursor() {
   const { isDesktop } = useBreakpoint();
@@ -194,7 +319,7 @@ function Reveal({ children, delay = 0, y = 24 }) {
 }
 
 /* ═══════════════════════════════════════════════════════
-   TILT CARD  (desktop only)
+   TILT CARD
 ═══════════════════════════════════════════════════════ */
 function TiltCard({ children, style = {} }) {
   const ref = useRef(null);
@@ -233,7 +358,7 @@ function Nav({ active }) {
 
   return (
     <>
-      <nav style={{
+      <nav aria-label="Main navigation" style={{
         position:"fixed", top:0, left:0, right:0, zIndex:1000,
         height: isMobile ? 56 : 62,
         padding: isMobile ? "0 20px" : isTablet ? "0 32px" : "0 56px",
@@ -243,63 +368,43 @@ function Nav({ active }) {
         borderBottom: scrolled ? `1px solid ${T.border}` : "none",
         transition:"all .4s ease",
       }}>
-        <button
-          onClick={() => { window.scrollTo({ top: 0, behavior: "smooth" }); }}
-          data-hover
-          style={{ background:"none", border:"none", cursor:"none", padding:0, display:"flex", alignItems:"center" }}
-        >
-          <img src="/logo.png" alt="Logo" style={{ height:"36px", width:"auto", objectFit:"contain" }}/>
+        <button onClick={() => window.scrollTo({ top:0, behavior:"smooth" })} data-hover aria-label="Go to top"
+          style={{ background:"none", border:"none", cursor:"none", padding:0, display:"flex", alignItems:"center" }}>
+          <img src="/logo.png" alt="Kavindu Sachintha Karunagoda Logo" width="36" height="36" style={{ height:"36px", width:"auto", objectFit:"contain" }}/>
         </button>
 
-        {/* Desktop nav */}
         {!isMobile && !isTablet && (
           <div style={{ display:"flex", gap:28 }}>
             {NAV_ITEMS.map(s => (
-              <button key={s} onClick={() => go(s)} data-hover style={{ background:"none", border:"none", cursor:"none", fontFamily:"'DM Mono',monospace", fontSize:".68rem", letterSpacing:".12em", textTransform:"uppercase", color:active===s?T.gold:T.inkMuted, borderBottom:`1.5px solid ${active===s?T.gold:"transparent"}`, paddingBottom:2, transition:"color .2s,border-color .2s" }}>{s}</button>
+              <button key={s} onClick={() => go(s)} data-hover aria-label={`Navigate to ${s}`}
+                style={{ background:"none", border:"none", cursor:"none", fontFamily:"'DM Mono',monospace", fontSize:".68rem", letterSpacing:".12em", textTransform:"uppercase", color:active===s?T.gold:T.inkMuted, borderBottom:`1.5px solid ${active===s?T.gold:"transparent"}`, paddingBottom:2, transition:"color .2s,border-color .2s" }}>{s}</button>
             ))}
           </div>
         )}
 
-        {/* Tablet nav */}
         {isTablet && (
           <div style={{ display:"flex", gap:18 }}>
             {["home","about","skills","projects","contact"].map(s => (
-              <button key={s} onClick={() => go(s)} data-hover style={{ background:"none", border:"none", cursor:"none", fontFamily:"'DM Mono',monospace", fontSize:".62rem", letterSpacing:".1em", textTransform:"uppercase", color:active===s?T.gold:T.inkMuted, borderBottom:`1.5px solid ${active===s?T.gold:"transparent"}`, paddingBottom:2, transition:"color .2s" }}>{s}</button>
+              <button key={s} onClick={() => go(s)} data-hover
+                style={{ background:"none", border:"none", cursor:"none", fontFamily:"'DM Mono',monospace", fontSize:".62rem", letterSpacing:".1em", textTransform:"uppercase", color:active===s?T.gold:T.inkMuted, borderBottom:`1.5px solid ${active===s?T.gold:"transparent"}`, paddingBottom:2, transition:"color .2s" }}>{s}</button>
             ))}
           </div>
         )}
 
-        {/* Mobile hamburger */}
         {isMobile && (
-          <button onClick={() => setMenuOpen(o => !o)} style={{ background:"none", border:"none", cursor:"pointer", padding:4, display:"flex", flexDirection:"column", gap:5 }}>
+          <button onClick={() => setMenuOpen(o => !o)} aria-label={menuOpen?"Close menu":"Open menu"} aria-expanded={menuOpen}
+            style={{ background:"none", border:"none", cursor:"pointer", padding:4, display:"flex", flexDirection:"column", gap:5 }}>
             {[0,1,2].map(i => (
-              <span key={i} style={{
-                display:"block", width:22, height:1.5, background:T.gold, borderRadius:2,
-                transform: menuOpen ? (i===0?"rotate(45deg) translate(4.5px,4.5px)": i===2?"rotate(-45deg) translate(4.5px,-4.5px)":"scaleX(0)") : "none",
-                transition:"transform .3s ease",
-              }}/>
+              <span key={i} style={{ display:"block", width:22, height:1.5, background:T.gold, borderRadius:2, transform: menuOpen ? (i===0?"rotate(45deg) translate(4.5px,4.5px)": i===2?"rotate(-45deg) translate(4.5px,-4.5px)":"scaleX(0)") : "none", transition:"transform .3s ease" }}/>
             ))}
           </button>
         )}
       </nav>
 
-      {/* Mobile dropdown menu */}
       {isMobile && (
-        <div style={{
-          position:"fixed", top:56, left:0, right:0, zIndex:999,
-          background:"rgba(9,14,26,0.98)", backdropFilter:"blur(20px)",
-          borderBottom:`1px solid ${T.border}`,
-          maxHeight: menuOpen ? 400 : 0, overflow:"hidden",
-          transition:"max-height .4s ease",
-        }}>
+        <div role="menu" style={{ position:"fixed", top:56, left:0, right:0, zIndex:999, background:"rgba(9,14,26,0.98)", backdropFilter:"blur(20px)", borderBottom:`1px solid ${T.border}`, maxHeight: menuOpen ? 400 : 0, overflow:"hidden", transition:"max-height .4s ease" }}>
           {NAV_ITEMS.map(s => (
-            <button key={s} onClick={() => go(s)} style={{
-              display:"block", width:"100%", background:"none", border:"none", cursor:"pointer",
-              padding:"16px 24px", textAlign:"left",
-              fontFamily:"'DM Mono',monospace", fontSize:".8rem", letterSpacing:".15em", textTransform:"uppercase",
-              color: active===s ? T.gold : T.inkMid,
-              borderBottom:`1px solid ${T.border}`,
-            }}>{s}</button>
+            <button key={s} role="menuitem" onClick={() => go(s)} style={{ display:"block", width:"100%", background:"none", border:"none", cursor:"pointer", padding:"16px 24px", textAlign:"left", fontFamily:"'DM Mono',monospace", fontSize:".8rem", letterSpacing:".15em", textTransform:"uppercase", color: active===s ? T.gold : T.inkMid, borderBottom:`1px solid ${T.border}` }}>{s}</button>
           ))}
         </div>
       )}
@@ -331,20 +436,8 @@ function HeroBtn({ children, primary, onClick }) {
   const [hov, setHov] = useState(false);
   const { isMobile } = useBreakpoint();
   return (
-    <button onClick={onClick} data-hover
-      onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
-      style={{
-        fontFamily:"'DM Mono',monospace", fontSize: isMobile?".7rem":".72rem",
-        letterSpacing:".1em", textTransform:"uppercase",
-        padding: isMobile?"11px 24px":"13px 32px", borderRadius:2, cursor:"pointer",
-        background: primary ? (hov?"linear-gradient(135deg,#7dd3fc,#38bdf8)":"linear-gradient(135deg,#38bdf8,#0ea5e9)") : "transparent",
-        color:  primary ? "#060a12" : (hov?"#38bdf8":T.inkMid),
-        border: primary ? "none" : `1.5px solid ${hov?"#38bdf8":T.borderDk}`,
-        boxShadow: primary&&hov ? "0 0 28px rgba(56,189,248,0.35)" : "none",
-        fontWeight: primary ? 600 : 400,
-        transition:"all .22s ease",
-        flex: isMobile ? "1 1 auto" : "none",
-      }}>{children}</button>
+    <button onClick={onClick} data-hover onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
+      style={{ fontFamily:"'DM Mono',monospace", fontSize: isMobile?".7rem":".72rem", letterSpacing:".1em", textTransform:"uppercase", padding: isMobile?"11px 24px":"13px 32px", borderRadius:2, cursor:"pointer", background: primary ? (hov?"linear-gradient(135deg,#7dd3fc,#38bdf8)":"linear-gradient(135deg,#38bdf8,#0ea5e9)") : "transparent", color: primary ? "#060a12" : (hov?"#38bdf8":T.inkMid), border: primary ? "none" : `1.5px solid ${hov?"#38bdf8":T.borderDk}`, boxShadow: primary&&hov ? "0 0 28px rgba(56,189,248,0.35)" : "none", fontWeight: primary ? 600 : 400, transition:"all .22s ease", flex: isMobile ? "1 1 auto" : "none" }}>{children}</button>
   );
 }
 
@@ -354,29 +447,22 @@ function Hero() {
   const { isMobile, isTablet, isDesktop } = useBreakpoint();
   useEffect(() => { setTimeout(() => setOn(true), 80); }, []);
 
-  const anim = (d) => ({
-    opacity: on?1:0,
-    transform: on?"translateY(0)":"translateY(20px)",
-    transition: `opacity .8s ease ${d}s,transform .8s ease ${d}s`,
-  });
-
+  const anim = (d) => ({ opacity: on?1:0, transform: on?"translateY(0)":"translateY(20px)", transition: `opacity .8s ease ${d}s,transform .8s ease ${d}s` });
   const showPhoto = isDesktop;
   const px = isMobile ? "20px" : isTablet ? "32px" : "56px";
 
   return (
-    <section id="home" style={{ minHeight:"100vh", display:"flex", alignItems:"center", padding:`80px ${px} ${isMobile?"60px":"0"}`, position:"relative", overflow:"hidden", background:T.bg }}>
-      {/* Background layers */}
+    <section id="home" aria-label="Hero" style={{ minHeight:"100vh", display:"flex", alignItems:"center", padding:`80px ${px} ${isMobile?"60px":"0"}`, position:"relative", overflow:"hidden", background:T.bg }}>
       <div style={{ position:"absolute", inset:0, pointerEvents:"none", backgroundImage:`linear-gradient(rgba(56,189,248,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(56,189,248,0.03) 1px,transparent 1px)`, backgroundSize:"60px 60px" }}/>
       <div style={{ position:"absolute", right:"-10%", top:"20%", width:600, height:600, borderRadius:"50%", background:"radial-gradient(circle,rgba(56,189,248,0.06) 0%,transparent 65%)", pointerEvents:"none" }}/>
       {!isMobile && <div style={{ position:"absolute", top:"50%", left:0, right:0, height:1, background:`linear-gradient(to right,transparent,rgba(56,189,248,0.08) 30%,rgba(56,189,248,0.08) 70%,transparent)`, opacity:.5 }}/>}
 
-      {/* Photo — desktop only, right side */}
       {showPhoto && (
         <div style={{ position:"absolute", right:"6%", top:"50%", transform:"translateY(-50%)", zIndex:2, pointerEvents:"none" }}>
           <div style={{ position:"absolute", inset:-3, borderRadius:"50% 42% 56% 44%/48% 50% 50% 52%", background:"linear-gradient(135deg,rgba(56,189,248,0.5),rgba(14,165,233,0.2),transparent 60%)", animation:"morphRing 8s ease-in-out infinite" }}/>
           <div style={{ position:"absolute", inset:-16, borderRadius:"50% 42% 56% 44%/48% 50% 50% 52%", border:"1px solid rgba(56,189,248,0.15)", animation:"morphRing 10s ease-in-out infinite reverse" }}/>
           <div style={{ position:"relative", zIndex:1, width:"clamp(260px,26vw,400px)", height:"clamp(300px,30vw,460px)", borderRadius:"50% 42% 56% 44%/48% 50% 50% 52%", overflow:"hidden", border:"2px solid rgba(56,189,248,0.2)", boxShadow:"0 0 60px rgba(56,189,248,0.12),0 32px 80px rgba(0,0,0,0.5)", animation:"morphPhoto 8s ease-in-out infinite" }}>
-            <img src="/kavindu.png" alt="Kavindu Sachintha Karunagoda" style={{ width:"100%", height:"100%", objectFit:"cover", objectPosition:"center top", filter:"brightness(0.95) contrast(1.05)" }}/>
+            <img src="/kavindu.png" alt="Kavindu Sachintha Karunagoda — Software Engineer" width="400" height="460" loading="eager" style={{ width:"100%", height:"100%", objectFit:"cover", objectPosition:"center top", filter:"brightness(0.95) contrast(1.05)" }}/>
             <div style={{ position:"absolute", inset:0, background:"linear-gradient(to bottom,transparent 60%,rgba(9,14,26,0.4))" }}/>
           </div>
           <div style={{ position:"absolute", bottom:24, left:-36, background:"rgba(17,24,39,0.95)", backdropFilter:"blur(12px)", border:"1px solid rgba(56,189,248,0.2)", borderRadius:10, padding:"10px 18px", zIndex:2, boxShadow:"0 8px 32px rgba(0,0,0,0.4)" }}>
@@ -389,14 +475,11 @@ function Hero() {
         </div>
       )}
 
-      {/* Text content */}
       <div style={{ position:"relative", zIndex:2, maxWidth: isDesktop?"580px": isTablet?"600px":"100%" }}>
-
-        {/* Tablet/Mobile: small photo above name */}
         {!isDesktop && (
           <div style={{ ...anim(0.05), marginBottom:28, display:"flex", alignItems:"center", gap:16 }}>
             <div style={{ width:72, height:72, borderRadius:"50%", overflow:"hidden", border:"2px solid rgba(56,189,248,0.3)", boxShadow:"0 0 20px rgba(56,189,248,0.15)", flexShrink:0 }}>
-              <img src="/kavindu.png" alt="Kavindu" style={{ width:"100%", height:"100%", objectFit:"cover", objectPosition:"center top" }}/>
+              <img src="/kavindu.png" alt="Kavindu Sachintha" width="72" height="72" loading="eager" style={{ width:"100%", height:"100%", objectFit:"cover", objectPosition:"center top" }}/>
             </div>
             <div style={{ fontFamily:"'DM Mono',monospace", fontSize:".65rem", letterSpacing:".15em", textTransform:"uppercase", color:T.gold }}>
               Software Engineer · Intern
@@ -408,7 +491,6 @@ function Hero() {
           </div>
         )}
 
-        {/* Desktop eyebrow */}
         {isDesktop && (
           <div style={{ ...anim(.1), fontFamily:"'DM Mono',monospace", fontSize:".72rem", letterSpacing:".18em", textTransform:"uppercase", color:T.gold, marginBottom:22, display:"flex", alignItems:"center", gap:10 }}>
             <span style={{ width:22, height:1, background:T.gold, display:"inline-block" }}/>
@@ -416,32 +498,26 @@ function Hero() {
           </div>
         )}
 
-        {/* Name */}
         <h1 style={{ ...anim(.2), fontFamily:"'Playfair Display',serif", fontSize:`clamp(${isMobile?"2rem":"2.4rem"},${isMobile?"9vw":"7vw"},5.5rem)`, fontWeight:700, color:T.ink, lineHeight:.94, letterSpacing:"-.03em", marginBottom:18 }}>
-          Kavindu<br/>
-          Sachintha<br/>
+          Kavindu<br/>Sachintha<br/>
           <span style={{ fontStyle:"italic", color:"#38bdf8" }}>Karunagoda</span>
         </h1>
 
-        {/* Typewriter */}
-        <div style={{ ...anim(.35), fontFamily:"'DM Mono',monospace", fontSize:`clamp(.82rem,${isMobile?"3.5vw":"1.8vw"},1.15rem)`, color:T.inkMid, marginBottom:24, minHeight:30 }}>
-          — {typed}<span style={{ animation:"blink 1s step-end infinite", color:T.gold }}>|</span>
+        <div style={{ ...anim(.35), fontFamily:"'DM Mono',monospace", fontSize:`clamp(.82rem,${isMobile?"3.5vw":"1.8vw"},1.15rem)`, color:T.inkMid, marginBottom:24, minHeight:30 }} aria-live="polite">
+          — {typed}<span style={{ animation:"blink 1s step-end infinite", color:T.gold }} aria-hidden="true">|</span>
         </div>
 
-        {/* Summary */}
         <p style={{ ...anim(.45), fontFamily:"'DM Sans',sans-serif", maxWidth:510, lineHeight:1.85, color:T.inkMuted, marginBottom:36, fontSize:`clamp(.85rem,${isMobile?"3.5vw":"1.4vw"},.94rem)` }}>
           {DATA.summary}
         </p>
 
-        {/* CTAs */}
         <div style={{ ...anim(.55), display:"flex", gap:12, flexWrap:"wrap", width: isMobile?"100%":"auto" }}>
           <HeroBtn primary onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior:"smooth" })}>View Projects</HeroBtn>
           <HeroBtn onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior:"smooth" })}>Get In Touch</HeroBtn>
         </div>
 
-        {/* Stats */}
         <div style={{ ...anim(.7), display:"flex", gap: isMobile?24:44, marginTop: isMobile?36:60, paddingTop: isMobile?24:32, borderTop:`1px solid ${T.border}`, flexWrap:"wrap" }}>
-          {[["4+","Projects"],["5+","Certificates"],["3+","Years"],["10+","Technologies"]].map(([n,l]) => (
+          {[["5+","Projects"],["5+","Certificates"],["3+","Years"],["10+","Technologies"]].map(([n,l]) => (
             <div key={l}>
               <div style={{ fontFamily:"'Playfair Display',serif", fontSize: isMobile?"1.6rem":"2.1rem", fontWeight:700, color:T.ink, lineHeight:1 }}>{n}</div>
               <div style={{ fontFamily:"'DM Mono',monospace", fontSize:".58rem", color:T.inkMuted, textTransform:"uppercase", letterSpacing:".1em", marginTop:4 }}>{l}</div>
@@ -450,8 +526,7 @@ function Hero() {
         </div>
       </div>
 
-      {/* Scroll hint */}
-      <div style={{ position:"absolute", bottom:24, left:"50%", transform:"translateX(-50%)", display:"flex", flexDirection:"column", alignItems:"center", gap:6, zIndex:2 }}>
+      <div style={{ position:"absolute", bottom:24, left:"50%", transform:"translateX(-50%)", display:"flex", flexDirection:"column", alignItems:"center", gap:6, zIndex:2 }} aria-hidden="true">
         <span style={{ fontFamily:"'DM Mono',monospace", fontSize:".55rem", color:T.inkMuted, letterSpacing:".15em" }}>SCROLL</span>
         <div style={{ width:1, height:30, background:`linear-gradient(to bottom,${T.gold},transparent)`, animation:"scrollPulse 2s ease-in-out infinite" }}/>
       </div>
@@ -470,10 +545,10 @@ function QualityCard({ card, index }) {
     <div ref={ref} onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
       style={{ opacity:vis?1:0, transform:vis?"translateY(0)":"translateY(28px)", transition:`opacity .6s ease ${index*.07}s,transform .6s ease ${index*.07}s,background .25s,border-color .25s`, background:hov?`${card.color}0f`:T.surface, border:`1px solid ${hov?card.color+"50":T.border}`, borderRadius:12, padding: isMobile?"18px 16px":"22px 20px", position:"relative", overflow:"hidden", cursor:"default" }}>
       <div style={{ position:"absolute", top:-28, left:-28, width:72, height:72, borderRadius:"50%", background:`radial-gradient(circle,${card.color}20,transparent 70%)`, pointerEvents:"none", opacity:hov?1:0, transition:"opacity .3s" }}/>
-      <div style={{ width:40, height:40, borderRadius:9, background:`${card.color}15`, border:`1px solid ${card.color}30`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:"1.2rem", marginBottom:12, transform:hov?"scale(1.08) rotate(-4deg)":"scale(1)", transition:"transform .25s" }}>{card.icon}</div>
+      <div style={{ width:40, height:40, borderRadius:9, background:`${card.color}15`, border:`1px solid ${card.color}30`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:"1.2rem", marginBottom:12, transform:hov?"scale(1.08) rotate(-4deg)":"scale(1)", transition:"transform .25s" }} role="img" aria-label={card.title}>{card.icon}</div>
       <div style={{ fontFamily:"'DM Mono',monospace", fontSize:".66rem", fontWeight:500, color:hov?card.color:T.ink, letterSpacing:".06em", textTransform:"uppercase", marginBottom:7, transition:"color .2s" }}>{card.title}</div>
       <div style={{ fontFamily:"'DM Sans',sans-serif", fontSize:".8rem", color:T.inkMuted, lineHeight:1.65 }}>{card.desc}</div>
-      <div style={{ position:"absolute", bottom:0, left:0, height:2, width:hov?"100%":"0%", background:`linear-gradient(90deg,${card.color},transparent)`, transition:"width .35s ease", borderRadius:"0 0 12px 12px" }}/>
+      <div style={{ position:"absolute", bottom:0, left:0, height:2, width:hov?"100%":"0%", background:`linear-gradient(90deg,${card.color},transparent)`, transition:"width .35s ease", borderRadius:"0 0 12px 12px" }} aria-hidden="true"/>
     </div>
   );
 }
@@ -483,7 +558,7 @@ function About() {
   const px = isMobile ? "20px" : isTablet ? "32px" : "56px";
   const cols = isMobile ? 2 : isTablet ? 3 : 4;
   return (
-    <section id="about" style={{ padding:`${isMobile?"80px":"120px"} ${px}`, maxWidth:1200, margin:"0 auto" }}>
+    <section id="about" aria-label="About Me" style={{ padding:`${isMobile?"80px":"120px"} ${px}`, maxWidth:1200, margin:"0 auto" }}>
       <SectionHeader sub="About Me" title="Who I Am"/>
       <div style={{ display:"grid", gridTemplateColumns: isMobile?"1fr": isTablet?"1fr":"1fr 1fr", gap: isMobile?36:72, alignItems:"start", marginBottom: isMobile?56:80 }}>
         <Reveal delay={.1}>
@@ -505,7 +580,6 @@ function About() {
           </TiltCard>
         </Reveal>
       </div>
-      {/* Quality cards */}
       <Reveal delay={.05}>
         <div style={{ fontFamily:"'DM Mono',monospace", fontSize:".66rem", color:T.gold, letterSpacing:".2em", textTransform:"uppercase", marginBottom:24, display:"flex", alignItems:"center", gap:12 }}>
           <span style={{ display:"inline-block", width:24, height:1, background:T.gold }}/>
@@ -527,15 +601,15 @@ function Skills() {
   const [activeIdx, setActiveIdx] = useState(null);
   const px = isMobile ? "20px" : isTablet ? "32px" : "56px";
   return (
-    <section id="skills" style={{ padding:`${isMobile?"80px":"120px"} ${px}`, background:T.bgAlt, borderTop:`1px solid ${T.border}`, borderBottom:`1px solid ${T.border}` }}>
+    <section id="skills" aria-label="Technical Skills" style={{ padding:`${isMobile?"80px":"120px"} ${px}`, background:T.bgAlt, borderTop:`1px solid ${T.border}`, borderBottom:`1px solid ${T.border}` }}>
       <div style={{ maxWidth:1200, margin:"0 auto" }}>
         <SectionHeader sub="Technical Skills" title="My Toolkit"/>
         <div style={{ display:"grid", gridTemplateColumns:`repeat(auto-fit,minmax(${isMobile?"140px":"260px"},1fr))`, gap: isMobile?12:18 }}>
           {DATA.skills.map((cat,i) => (
             <Reveal key={cat.cat} delay={i*.07}>
-              <TiltCard style={{ background:activeIdx===i?T.surface:T.surface, border:`1px solid ${activeIdx===i?T.borderDk:T.border}`, borderRadius:10, padding: isMobile?"18px 16px":28, boxShadow:activeIdx===i?"0 6px 32px rgba(0,0,0,0.3)":"0 2px 12px rgba(0,0,0,0.15)", transition:"border-color .25s,box-shadow .25s", cursor:"default" }} onMouseEnter={() => setActiveIdx(i)} onMouseLeave={() => setActiveIdx(null)}>
+              <TiltCard style={{ background:T.surface, border:`1px solid ${activeIdx===i?T.borderDk:T.border}`, borderRadius:10, padding: isMobile?"18px 16px":28, boxShadow:activeIdx===i?"0 6px 32px rgba(0,0,0,0.3)":"0 2px 12px rgba(0,0,0,0.15)", transition:"border-color .25s,box-shadow .25s", cursor:"default" }} onMouseEnter={() => setActiveIdx(i)} onMouseLeave={() => setActiveIdx(null)}>
                 <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:14, paddingBottom:11, borderBottom:`1px solid ${T.bgAlt}` }}>
-                  <div style={{ width:5, height:5, borderRadius:"50%", background:T.gold }}/>
+                  <div style={{ width:5, height:5, borderRadius:"50%", background:T.gold }} aria-hidden="true"/>
                   <span style={{ fontFamily:"'DM Mono',monospace", fontSize:".62rem", fontWeight:500, color:T.gold, textTransform:"uppercase", letterSpacing:".12em" }}>{cat.cat}</span>
                 </div>
                 <div style={{ display:"flex", flexWrap:"wrap", gap:6 }}>
@@ -559,16 +633,16 @@ function Education() {
   const { isMobile, isTablet } = useBreakpoint();
   const px = isMobile ? "20px" : isTablet ? "32px" : "56px";
   return (
-    <section id="education" style={{ padding:`${isMobile?"80px":"120px"} ${px}`, maxWidth:1200, margin:"0 auto" }}>
+    <section id="education" aria-label="Education" style={{ padding:`${isMobile?"80px":"120px"} ${px}`, maxWidth:1200, margin:"0 auto" }}>
       <SectionHeader sub="Education" title="Academic Journey"/>
       <div style={{ position:"relative", paddingLeft: isMobile?24:36 }}>
-        <div style={{ position:"absolute", left:0, top:10, bottom:0, width:1, background:`linear-gradient(to bottom,${T.gold},${T.border} 80%,transparent)` }}/>
+        <div style={{ position:"absolute", left:0, top:10, bottom:0, width:1, background:`linear-gradient(to bottom,${T.gold},${T.border} 80%,transparent)` }} aria-hidden="true"/>
         {DATA.education.map((e,i) => (
           <Reveal key={i} delay={i*.1}>
             <div style={{ position:"relative", marginBottom: isMobile?32:46 }}>
-              <div style={{ position:"absolute", left: isMobile?-28:-40, top:8, width:9, height:9, borderRadius:"50%", background:T.bg, border:`2px solid ${T.gold}`, boxShadow:`0 0 0 3px ${T.bgAlt}` }}/>
-              <div style={{ fontFamily:"'DM Mono',monospace", fontSize:".62rem", color:T.gold, letterSpacing:".1em", marginBottom:5 }}>{e.date}</div>
-              <div style={{ fontFamily:"'Playfair Display',serif", fontSize: isMobile?".95rem":"1.05rem", fontWeight:700, color:T.ink, marginBottom:3 }}>{e.degree}</div>
+              <div style={{ position:"absolute", left: isMobile?-28:-40, top:8, width:9, height:9, borderRadius:"50%", background:T.bg, border:`2px solid ${T.gold}`, boxShadow:`0 0 0 3px ${T.bgAlt}` }} aria-hidden="true"/>
+              <time style={{ fontFamily:"'DM Mono',monospace", fontSize:".62rem", color:T.gold, letterSpacing:".1em", marginBottom:5, display:"block" }}>{e.date}</time>
+              <h3 style={{ fontFamily:"'Playfair Display',serif", fontSize: isMobile?".95rem":"1.05rem", fontWeight:700, color:T.ink, marginBottom:3 }}>{e.degree}</h3>
               <div style={{ fontFamily:"'DM Sans',sans-serif", fontSize:".82rem", color:T.inkMid, marginBottom:4 }}>{e.org}</div>
               {e.desc && <div style={{ fontFamily:"'DM Sans',sans-serif", fontSize:".78rem", color:T.inkMuted, lineHeight:1.7 }}>{e.desc}</div>}
             </div>
@@ -582,14 +656,15 @@ function Education() {
 /* ═══════════════════════════════════════════════════════
    ICONS
 ═══════════════════════════════════════════════════════ */
-const GhIcon = () => <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>;
-const ExtIcon = () => <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>;
+const GhIcon = () => <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>;
+const ExtIcon = () => <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>;
 
 function LinkBtn({ href, icon, label, accent }) {
   const [hov, setHov] = useState(false);
   if (!href) return null;
   return (
-    <a href={href} target="_blank" rel="noopener noreferrer" data-hover onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
+    <a href={href} target="_blank" rel="noopener noreferrer" data-hover aria-label={label}
+      onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
       style={{ display:"inline-flex", alignItems:"center", gap:5, fontFamily:"'DM Mono',monospace", fontSize:".62rem", letterSpacing:".06em", textTransform:"uppercase", textDecoration:"none", padding:"6px 12px", borderRadius:2, border:`1px solid ${hov?accent:T.border}`, color:hov?accent:T.inkMuted, background:hov?`${accent}10`:"transparent", transition:"all .2s", cursor:"pointer" }}>
       {icon} {label}
     </a>
@@ -603,28 +678,30 @@ function Projects() {
   const { isMobile, isTablet } = useBreakpoint();
   const px = isMobile ? "20px" : isTablet ? "32px" : "56px";
   return (
-    <section id="projects" style={{ padding:`${isMobile?"80px":"120px"} ${px}`, background:T.bgAlt, borderTop:`1px solid ${T.border}`, borderBottom:`1px solid ${T.border}` }}>
+    <section id="projects" aria-label="Projects" style={{ padding:`${isMobile?"80px":"120px"} ${px}`, background:T.bgAlt, borderTop:`1px solid ${T.border}`, borderBottom:`1px solid ${T.border}` }}>
       <div style={{ maxWidth:1200, margin:"0 auto" }}>
         <SectionHeader sub="Projects" title="What I've Built"/>
         <div style={{ display:"grid", gridTemplateColumns:`repeat(auto-fit,minmax(${isMobile?"280px":"300px"},1fr))`, gap: isMobile?16:24 }}>
           {DATA.projects.map((p,i) => (
             <Reveal key={p.title} delay={i*.08}>
-              <TiltCard style={{ background:T.surface, border:`1px solid ${T.border}`, borderRadius:10, padding: isMobile?22:32, position:"relative", overflow:"hidden", boxShadow:"0 2px 20px rgba(0,0,0,0.2)", display:"flex", flexDirection:"column" }}>
-                <div style={{ position:"absolute", top:0, left:0, bottom:0, width:3, background:p.accent }}/>
-                <div style={{ position:"absolute", bottom:-14, right:12, fontFamily:"'Playfair Display',serif", fontSize:"5rem", fontWeight:700, fontStyle:"italic", color:`${p.accent}08`, lineHeight:1, userSelect:"none", pointerEvents:"none" }}>0{i+1}</div>
-                <div style={{ paddingLeft:10, marginBottom:14, display:"flex", justifyContent:"space-between", alignItems:"center" }}>
-                  <span style={{ fontFamily:"'DM Mono',monospace", fontSize:".58rem", padding:"3px 8px", borderRadius:2, textTransform:"uppercase", letterSpacing:".1em", background:p.status==="Ongoing"?"rgba(245,158,11,0.12)":"rgba(16,185,129,0.12)", color:p.status==="Ongoing"?"#f59e0b":"#10b981", border:`1px solid ${p.status==="Ongoing"?"rgba(245,158,11,0.3)":"rgba(16,185,129,0.3)"}` }}>{p.status}</span>
-                </div>
-                <h3 style={{ fontFamily:"'Playfair Display',serif", fontSize: isMobile?"1rem":"1.1rem", fontWeight:700, color:T.ink, marginBottom:9, paddingLeft:10, lineHeight:1.35 }}>{p.title}</h3>
-                <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:".83rem", color:T.inkMuted, lineHeight:1.75, marginBottom:18, paddingLeft:10, flexGrow:1 }}>{p.desc}</p>
-                <div style={{ display:"flex", flexWrap:"wrap", gap:5, marginBottom:16, paddingLeft:10 }}>
-                  {p.stack.map(t => <span key={t} style={{ fontFamily:"'DM Mono',monospace", fontSize:".6rem", padding:"3px 8px", borderRadius:2, background:`${p.accent}0d`, border:`1px solid ${p.accent}28`, color:p.accent }}>{t}</span>)}
-                </div>
-                <div style={{ display:"flex", gap:7, paddingLeft:10 }}>
-                  <LinkBtn href={p.github} icon={<GhIcon/>}  label="GitHub"    accent={p.accent}/>
-                  <LinkBtn href={p.live}   icon={<ExtIcon/>} label="Live Demo"  accent={p.accent}/>
-                </div>
-              </TiltCard>
+              <article>
+                <TiltCard style={{ background:T.surface, border:`1px solid ${T.border}`, borderRadius:10, padding: isMobile?22:32, position:"relative", overflow:"hidden", boxShadow:"0 2px 20px rgba(0,0,0,0.2)", display:"flex", flexDirection:"column" }}>
+                  <div style={{ position:"absolute", top:0, left:0, bottom:0, width:3, background:p.accent }} aria-hidden="true"/>
+                  <div style={{ position:"absolute", bottom:-14, right:12, fontFamily:"'Playfair Display',serif", fontSize:"5rem", fontWeight:700, fontStyle:"italic", color:`${p.accent}08`, lineHeight:1, userSelect:"none", pointerEvents:"none" }} aria-hidden="true">0{i+1}</div>
+                  <div style={{ paddingLeft:10, marginBottom:14 }}>
+                    <span style={{ fontFamily:"'DM Mono',monospace", fontSize:".58rem", padding:"3px 8px", borderRadius:2, textTransform:"uppercase", letterSpacing:".1em", background:p.status==="Ongoing"?"rgba(245,158,11,0.12)":"rgba(16,185,129,0.12)", color:p.status==="Ongoing"?"#f59e0b":"#10b981", border:`1px solid ${p.status==="Ongoing"?"rgba(245,158,11,0.3)":"rgba(16,185,129,0.3)"}` }}>{p.status}</span>
+                  </div>
+                  <h3 style={{ fontFamily:"'Playfair Display',serif", fontSize: isMobile?"1rem":"1.1rem", fontWeight:700, color:T.ink, marginBottom:9, paddingLeft:10, lineHeight:1.35 }}>{p.title}</h3>
+                  <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:".83rem", color:T.inkMuted, lineHeight:1.75, marginBottom:18, paddingLeft:10, flexGrow:1 }}>{p.desc}</p>
+                  <div style={{ display:"flex", flexWrap:"wrap", gap:5, marginBottom:16, paddingLeft:10 }} aria-label="Tech stack">
+                    {p.stack.map(t => <span key={t} style={{ fontFamily:"'DM Mono',monospace", fontSize:".6rem", padding:"3px 8px", borderRadius:2, background:`${p.accent}0d`, border:`1px solid ${p.accent}28`, color:p.accent }}>{t}</span>)}
+                  </div>
+                  <div style={{ display:"flex", gap:7, paddingLeft:10 }}>
+                    <LinkBtn href={p.github} icon={<GhIcon/>} label="GitHub"    accent={p.accent}/>
+                    <LinkBtn href={p.live}   icon={<ExtIcon/>} label="Live Demo" accent={p.accent}/>
+                  </div>
+                </TiltCard>
+              </article>
             </Reveal>
           ))}
         </div>
@@ -640,13 +717,13 @@ function Certifications() {
   const { isMobile, isTablet } = useBreakpoint();
   const px = isMobile ? "20px" : isTablet ? "32px" : "56px";
   return (
-    <section id="certifications" style={{ padding:`${isMobile?"80px":"120px"} ${px}`, maxWidth:1200, margin:"0 auto" }}>
+    <section id="certifications" aria-label="Certifications" style={{ padding:`${isMobile?"80px":"120px"} ${px}`, maxWidth:1200, margin:"0 auto" }}>
       <SectionHeader sub="Certifications" title="Credentials"/>
       <div style={{ display:"grid", gridTemplateColumns:`repeat(auto-fit,minmax(${isMobile?"260px":"260px"},1fr))`, gap: isMobile?12:16 }}>
         {DATA.certs.map((c,i) => (
           <Reveal key={c.title} delay={i*.07}>
             <TiltCard style={{ background:T.surface, border:`1px solid ${T.border}`, borderRadius:10, padding: isMobile?"16px 18px":"20px 24px", display:"flex", gap:16, alignItems:"flex-start", boxShadow:"0 1px 10px rgba(0,0,0,0.2)" }}>
-              <span style={{ fontFamily:"'Playfair Display',serif", fontStyle:"italic", fontSize:"1.5rem", fontWeight:700, color:`${T.gold}28`, lineHeight:1, flexShrink:0 }}>0{i+1}</span>
+              <span style={{ fontFamily:"'Playfair Display',serif", fontStyle:"italic", fontSize:"1.5rem", fontWeight:700, color:`${T.gold}28`, lineHeight:1, flexShrink:0 }} aria-hidden="true">0{i+1}</span>
               <div>
                 <div style={{ fontFamily:"'DM Sans',sans-serif", fontSize:".85rem", fontWeight:600, color:T.ink, lineHeight:1.5, marginBottom:3 }}>{c.title}</div>
                 <div style={{ fontFamily:"'DM Mono',monospace", fontSize:".64rem", color:T.gold }}>{c.org}</div>
@@ -655,7 +732,6 @@ function Certifications() {
           </Reveal>
         ))}
       </div>
-      {/* Extra-Curricular */}
       <div style={{ marginTop: isMobile?56:80 }}>
         <Reveal>
           <div style={{ fontFamily:"'DM Mono',monospace", fontSize:".66rem", color:T.gold, letterSpacing:".2em", textTransform:"uppercase", marginBottom:24, display:"flex", alignItems:"center", gap:12 }}>
@@ -693,7 +769,7 @@ function Contact() {
   const px = isMobile ? "20px" : isTablet ? "32px" : "56px";
   const copy = () => { navigator.clipboard.writeText(DATA.email); setCopied(true); setTimeout(() => setCopied(false), 2200); };
   return (
-    <section id="contact" style={{ padding:`${isMobile?"80px":"120px"} ${px}`, background:T.dark }}>
+    <section id="contact" aria-label="Contact" style={{ padding:`${isMobile?"80px":"120px"} ${px}`, background:T.dark }}>
       <div style={{ maxWidth:780, margin:"0 auto", textAlign:"center" }}>
         <Reveal>
           <div style={{ fontFamily:"'DM Mono',monospace", fontSize:".64rem", color:T.gold, letterSpacing:".22em", textTransform:"uppercase", marginBottom:12 }}>Let's Connect</div>
@@ -705,7 +781,7 @@ function Contact() {
           </p>
         </Reveal>
         <Reveal delay={.15}>
-          <div onClick={copy} data-hover onMouseEnter={() => setHovEmail(true)} onMouseLeave={() => setHovEmail(false)}
+          <div onClick={copy} data-hover onMouseEnter={() => setHovEmail(true)} onMouseLeave={() => setHovEmail(false)} role="button" aria-label="Copy email address" tabIndex={0}
             style={{ display:"inline-flex", alignItems:"center", gap:10, cursor:"pointer", fontFamily:"'Playfair Display',serif", fontSize:`clamp(.82rem,${isMobile?"3.5vw":"2.2vw"},1.3rem)`, fontWeight:600, color:copied?"#4ade80":(hovEmail?T.gold:"#fff"), marginBottom:44, letterSpacing:"-.01em", transition:"color .3s", flexWrap:"wrap", justifyContent:"center" }}>
             {copied?"✓ Copied!":DATA.email}
             <span style={{ fontFamily:"'DM Mono',monospace", fontSize:".54rem", padding:"3px 7px", border:"1px solid currentColor", borderRadius:2, opacity:.55, letterSpacing:".1em" }}>{copied?"DONE":"COPY"}</span>
@@ -728,7 +804,10 @@ function Footer() {
   const { isMobile } = useBreakpoint();
   return (
     <footer style={{ padding: isMobile?"16px 20px":"20px 56px", textAlign:"center", background:T.dark, borderTop:"1px solid rgba(255,255,255,0.05)", fontFamily:"'DM Mono',monospace", fontSize:".58rem", color:"rgba(248,245,240,0.18)", letterSpacing:".1em" }}>
-      KAVINDU SACHINTHA KARUNAGODA · DESIGNED & BUILT · 2025
+      <address style={{ fontStyle:"normal" }}>
+        KAVINDU SACHINTHA KARUNAGODA · DESIGNED & BUILT · 2025 ·{" "}
+        <a href="mailto:kavindusachintha2001n@gmail.com" style={{ color:"inherit", textDecoration:"none" }}>kavindusachintha2001n@gmail.com</a>
+      </address>
     </footer>
   );
 }
@@ -738,19 +817,7 @@ function Footer() {
 ═══════════════════════════════════════════════════════ */
 export default function App() {
   const [active, setActive] = useState("home");
-  const { isMobile, isDesktop } = useBreakpoint();
-
-  useEffect(() => {
-    document.title = "Portfolio | Kavindu Sachintha Karunagoda";
-    let link = document.querySelector("link[rel~='icon']");
-    if (!link) {
-      link = document.createElement("link");
-      link.rel = "icon";
-      document.head.appendChild(link);
-    }
-    link.type = "image/png";
-    link.href = "/logo.png";
-  }, []);
+  const { isDesktop } = useBreakpoint();
 
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -763,6 +830,7 @@ export default function App() {
 
   return (
     <div style={{ background:T.bg, minHeight:"100vh", color:T.ink, cursor: isDesktop?"none":"auto" }}>
+      <SEO/>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
         *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
@@ -777,16 +845,19 @@ export default function App() {
         ::-webkit-scrollbar-thumb { background:${T.gold}; border-radius:2px; }
         section { position:relative; z-index:1; }
         img { max-width:100%; }
+        a:focus-visible, button:focus-visible { outline:2px solid ${T.gold}; outline-offset:3px; border-radius:2px; }
       `}</style>
       <Cursor/>
       <Nav active={active}/>
-      <Hero/>
-      <About/>
-      <Skills/>
-      <Education/>
-      <Projects/>
-      <Certifications/>
-      <Contact/>
+      <main>
+        <Hero/>
+        <About/>
+        <Skills/>
+        <Education/>
+        <Projects/>
+        <Certifications/>
+        <Contact/>
+      </main>
       <Footer/>
     </div>
   );
